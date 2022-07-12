@@ -7,10 +7,13 @@ const Task = (props) => {
 
     return (
         
-        <li onMouseEnter={() => toggleVisibility(true)}>{props.listItem}
+        <li 
+        onMouseEnter={() => toggleVisibility(true)}
+        onMouseLeave={() => toggleVisibility(false)}
+        >{props.listItem}
             <button
                 className={(visible == true) ? "btn DelItem float-end text-danger" : "d-none"}
-                onClick={() => {toggleVisibility(false); props.removeItem(i); }}>
+                onClick={() => {props.removeItem(i); }}>
                 <i className="fa fa-trash p-2 flex-shrink-1" />
             </button>
         </li>
