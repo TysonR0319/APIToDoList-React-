@@ -13,8 +13,8 @@ const Home = () => {
 
 	//ApiCallFunction
 	const fetchListItem = () => {
-		fetch('https://assets.breatheco.de/apis/fake/todos/user/alesanchezr', {
-			method: "Get",
+		fetch('https://assets.breatheco.de/apis/fake/todos/user/tysonr0319', {
+			method: "GET",
 			headers: {
 				"Content-Type": "application/json"
 			}
@@ -40,7 +40,7 @@ const Home = () => {
 	const addItem = (li) => {
 		const newTodo = {label:li, done:false}
 		const newList = [...list, newTodo]
-		fetch('https://assets.breatheco.de/apis/fake/todos/user/alesanchezr', {
+		fetch('https://assets.breatheco.de/apis/fake/todos/user/tysonr0319', {
 			method: "PUT",
 			body: JSON.stringify(newList),
 			headers: {
@@ -53,21 +53,22 @@ const Home = () => {
 			}
 		})
 		.then((data) => {	
-			alert(data.result)
 			fetchListItem()
 		})
 		.catch((error) => {	//catching errors
 			console.log(error);
 		})
-
 	}
 	//removeItem
 	const removeItem = (index) => {
-		const newList = [...list]
-		newList[index].done = true
-		fetch('https://assets.breatheco.de/apis/fake/todos/user/alesanchezr', {
+		// const newList = [...list]
+		
+		const deleteList = list.filter((item, i) => i != index);
+		setList(deleteList);
+		// deleteList[index].done = true
+		fetch('https://assets.breatheco.de/apis/fake/todos/user/tysonr0319', {
 			method: "PUT",
-			body: JSON.stringify(newList),
+			body: JSON.stringify(deleteList),
 			headers: {
 				"Content-Type": "application/json"
 			}
@@ -78,7 +79,6 @@ const Home = () => {
 			}
 		})
 		.then((data) => {	
-			alert(data.result)
 			fetchListItem()
 		})
 		.catch((error) => {	//catching errors
@@ -93,7 +93,7 @@ const Home = () => {
 			{list.map((li, i) => {
 				return <Task key={`${li.label}-${i}`} listItem={li.label} index={i} removeItem={removeItem} />
 			})}
-			{list.length}
+			<p className="list-left">Tasks left {list.length}</p>
 		</div>
 	);
 };
