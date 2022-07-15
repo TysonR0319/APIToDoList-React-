@@ -63,9 +63,10 @@ const Home = () => {
 	const removeItem = (index) => {
 		// const newList = [...list]
 		
-		const deleteList = list.filter((item, i) => i != index);
+		const deleteList = [...list];
+		deleteList[index].done = true
 		setList(deleteList);
-		// deleteList[index].done = true
+		
 		fetch('https://assets.breatheco.de/apis/fake/todos/user/tysonr0319', {
 			method: "PUT",
 			body: JSON.stringify(deleteList),
@@ -85,15 +86,19 @@ const Home = () => {
 			console.log(error);
 		})
 	}
+	const filteredList = list.filter((li, index) => {return li.done === false})
+
+	
+	
 
 	return (
 		<div className="container-fluid">
 			<h1>To-Do</h1>
 			<TaskInput addItem={addItem} />
 			{list.map((li, i) => {
-				return <Task key={`${li.label}-${i}`} listItem={li.label} index={i} removeItem={removeItem} />
+				return <Task key={`${li.label}-${i}`} listItem={li} index={i} removeItem={removeItem} />
 			})}
-			<p className="list-left">Tasks left {list.length}</p>
+			<p className="list-left">Tasks left {filteredList.length}</p>
 		</div>
 	);
 };

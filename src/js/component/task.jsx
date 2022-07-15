@@ -5,10 +5,11 @@ const Task = (props) => {
 
     return (
         <li 
+            className={props.listItem.done ? "d-none" : ""}
             onMouseEnter={() => toggleVisibility(true)}
             onMouseLeave={() => toggleVisibility(false)}
         >
-            {props.listItem}
+            {props.listItem.label}
             <button
                 className={visible ? "btn DelItem float-end text-danger" : "d-none"}
                 onClick={() => props.removeItem(props.index)}
